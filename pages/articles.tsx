@@ -31,7 +31,7 @@ export const getServerSideProps: GetServerSideProps<Promise<Object>> = async (
   ctx
 ) => {
   let res: Response = await fetch(
-    `http://localhost:3000/api/articles?q=${ctx.query.search}`
+    `${process.env.APP_URL}/api/articles?q=${ctx.query.search}`
   );
   if (res.status != 200) console.error(res);
   let data = await res.json();

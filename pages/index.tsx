@@ -31,7 +31,9 @@ const Home: NextPage = (props: any) => {
 };
 
 export const getStaticProps: GetStaticProps<Promise<Object>> = async (ctx) => {
-  let res: Response = await fetch("http://localhost:3000/api/articles");
+  let res: Response = await fetch(
+    `${process.env.APP_URL}/api/articles`
+  );
   if (res.status != 200) console.error(res);
   let data = await res.json();
   return {
