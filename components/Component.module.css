@@ -1,0 +1,13 @@
+.background{
+  background: #e4f6fe;
+}
+
+.border1{
+  outline: 1px solid rgb(238, 238, 238);
+
+}
+
+.remove-a-default{
+  text-decoration: none;
+  color: inherit;
+}
