@@ -31,11 +31,14 @@ const Home: NextPage = (props: any) => {
 };
 
 export const getStaticProps: GetStaticProps<Promise<Object>> = async (ctx) => {
-  let res: Response = await fetch(
-    `${process.env.APP_URL}/api/articles`
-  );
-  if (res.status != 200) console.error(res);
-  let data = await res.json();
+  let uri: string = process.env["API_URL"]!;
+  let url: string = encodeURI(uri + "top-headlines?country=in");
+  let response = await fetch(url, {
+    headers: new Headers({
+      "X-API-Key": process.env["API_KEY"] || "",
+    }),
+  });
+  let data = await response.json();
   return {
     props: data,
   };

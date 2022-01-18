@@ -30,11 +30,18 @@ const Article: NextPage = (props: any) => {
 export const getServerSideProps: GetServerSideProps<Promise<Object>> = async (
   ctx
 ) => {
-  let res: Response = await fetch(
-    `${process.env.APP_URL}/api/articles?q=${ctx.query.search}`
-  );
-  if (res.status != 200) console.error(res);
-  let data = await res.json();
+  let uri: string = process.env["API_URL"]!;
+  let url: string = encodeURI(uri + "top-headlines?country=in");
+  if (ctx.query.search !== undefined)
+    url = encodeURI(
+      uri + "everything?" + `q=${ctx.query.search}&sortBy=popularity`
+    );
+  let response = await fetch(url, {
+    headers: new Headers({
+      "X-API-Key": process.env["API_KEY"] || "",
+    }),
+  });
+  let data = await response.json();
   return {
     props: data,
   };
